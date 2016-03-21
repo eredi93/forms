@@ -15,7 +15,7 @@ Install using Composer.
 ```json
 {
     "require": {
-        "eredi93/forms": "0.1"
+        "eredi93/forms": "0.1.*"
     }
 }
 ```
