@@ -12,8 +12,7 @@
         }
     ],
     "require": {
-        "php": ">=5.5",
-        "psr/http-message": "^1.0"
+        "php": ">=5.5"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "2.1.*",

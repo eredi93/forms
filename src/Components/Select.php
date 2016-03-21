@@ -20,11 +20,12 @@ namespace Forms\Components;
  */
 class Select extends Base
 {
+
     /*
      * @var array Associative array for select options eg ['name'=>"text"]
      */
     private $options;
-    
+
     /**
      * Set select menu
      *
@@ -41,13 +42,13 @@ class Select extends Base
      *
      * @return string
      */
-    public function render($args, $errors)
+    public function render($attributes, $errors)
     {
-        if (isset($args[$this->args['name']]) && $this->isCallBack()) {
-            $this->args['value'] = $args[$this->args['name']];
+        if (isset($attributes[$this->attributes['name']]) && $this->isCallBack()) {
+            $this->attributes['value'] = $attributes[$this->attributes['name']];
         }
         $select =  "<select ";
-        foreach ($this->args as $key => $value) {
+        foreach ($this->attributes as $key => $value) {
             $select .= "{$key}=\"{$value}\" ";
         }
         $select .= ">";

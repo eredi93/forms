@@ -20,18 +20,41 @@ namespace Forms\Components;
  */
 class Input extends Base
 {
+
+    /**
+     * Set component value
+     *
+     * @return $this
+     */
+    public function setValue($value)
+    {
+        $this->attributes['value'] = $value;
+        return $this;
+    }
+
+    /**
+     * Set component autocomplete
+     *
+     * @return $this
+     */
+    public function setAutocomplete($mode)
+    {
+        $this->attributes['autocomplete'] = $mode;
+        return $this;
+    }
+
     /**
      * Render HTML of the form component
      *
      * @return string
      */
-    public function render($args, $errors)
+    public function render($attributes, $errors)
     {
-        if (isset($args[$this->args['name']]) && $this->isCallBack()) {
-            $this->args['value'] = $args[$this->args['name']];
+        if (isset($attributes[$this->attributes['name']]) && $this->isCallBack()) {
+            $this->attributes['value'] = $attributes[$this->attributes['name']];
         }
         $input =  "<input ";
-        foreach ($this->args as $key => $value) {
+        foreach ($this->attributes as $key => $value) {
             $input .= "{$key}=\"{$value}\" ";
         }
         $input .= ">";

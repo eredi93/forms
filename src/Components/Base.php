@@ -25,9 +25,9 @@ class Base
     protected $validators;
 
     /*
-     * @var array Associative array for components values eg ['class'=>"im_a_class", 'id'=>"im_an_id"]
+     * @var array Associative array for components attributes eg ['class'=>"im_a_class", 'id'=>"im_an_id"]
      */
-    protected $args;
+    protected $attributes;
 
     /*
      * @var string Text within element tags
@@ -74,10 +74,21 @@ class Base
         $this->decorator_identifier = "%s";
         $this->call_back = true;
         if ($name) {
-            $this->args['name'] = $name;
+            $this->attributes['name'] = $name;
         } else {
-            $this->args['name'] = null;
+            $this->attributes['name'] = null;
         }
+    }
+
+    /**
+     * Set component attributes
+     *
+     * @return $this
+     */
+    public function setAttributes(array $attributes)
+    {
+        $this->attributes = $attributes;
+        return $this;
     }
 
     /**
@@ -87,7 +98,7 @@ class Base
      */
     public function setClass($class)
     {
-        $this->args['class'] = $class;
+        $this->attributes['class'] = $class;
         return $this;
     }
 
@@ -98,7 +109,7 @@ class Base
      */
     public function setID($id)
     {
-        $this->args['id'] = $id;
+        $this->attributes['id'] = $id;
         return $this;
     }
 
@@ -109,18 +120,7 @@ class Base
      */
     public function setType($type)
     {
-        $this->args['type'] = $type;
-        return $this;
-    }
-
-    /**
-     * Set component value
-     *
-     * @return $this
-     */
-    public function setValue($value)
-    {
-        $this->args['value'] = $value;
+        $this->attributes['type'] = $type;
         return $this;
     }
 
@@ -131,18 +131,7 @@ class Base
      */
     public function setPlaceholder($placeholder)
     {
-        $this->args['placeholder'] = $placeholder;
-        return $this;
-    }
-
-    /**
-     * Set component autocomplete
-     *
-     * @return $this
-     */
-    public function setAutocomplete($mode)
-    {
-        $this->args['autocomplete'] = $mode;
+        $this->attributes['placeholder'] = $placeholder;
         return $this;
     }
 
@@ -165,7 +154,7 @@ class Base
     public function setLabel($label)
     {
         if ($label) {
-            $this->label = "<label for=\"{$this->args['name']}\">{$label}</label>";
+            $this->label = "<label for=\"{$this->attributes['name']}\">{$label}</label>";
         } else {
             $this->label = null;
         }
@@ -235,13 +224,13 @@ class Base
     }
 
     /**
-     * Return current class name argument
+     * Helper that returns current class name attributes
      *
      * @return string
      */
     public function getName()
     {
-        return $this->args['name'];
+        return $this->attributes['name'];
     }
 
     /**
@@ -251,7 +240,7 @@ class Base
      */
     public function render($args)
     {
-        return "";
+
     }
 
     /**

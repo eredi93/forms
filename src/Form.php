@@ -21,32 +21,12 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 class Form
 {
     /*
-     * @var string Form method
+     * @var array Associative array for components attributes eg ['method'=>"POST", 'id'=>"im_an_id"]
      */
-    protected $method;
+    protected $attributes;
     
     /*
-     * @var string Form action
-     */
-    protected $action;
-    
-    /*
-     * @var string Form enctype
-     */
-    protected $enctype;
-    
-    /*
-     * @var string Form style class
-     */
-    protected $class;
-    
-    /*
-     * @var string Form style id
-     */
-    protected $id;
-    
-    /*
-     * @var array List of form components e.g. \Forms\Components\Input
+     * @var array List of form components e.g. \Forms\Components\TextInput
      */
     protected $fields;
     
@@ -68,14 +48,26 @@ class Form
     public function __construct($action = "", $method = "POST", array $csrf = ['csrf_name', 'csrf_value'])
     {
         $this->csrf = $csrf;
-        $this->method = $method;
-        $this->action = $action;
+        $this->attributes['method'] = $method;
+        $this->attributes['action'] = $action;
         $this->errors = [];
         $this->setUp();
     }
 
     /**
-     * Return validation errors
+     * Set component attributes
+     *
+     * @return $this
+     */
+    protected function setAttributes(array $attributes)
+    {
+        $this->attributes = $attributes;
+        return $this;
+    }
+
+
+    /**
+     * Return Form validation errors
      *
      * @return array Class validation errors
      */
@@ -85,7 +77,17 @@ class Form
     }
 
     /**
-     * Return fields
+     * Return Form method
+     *
+     * @return array Class fields
+     */
+    public function getMethod()
+    {
+        return $this->attributes['method'];
+    }
+
+    /**
+     * Return Form fields
      *
      * @return array Class fields
      */
@@ -105,13 +107,13 @@ class Form
     }
 
     /**
-     * Setup class, this method runs in __construct
+     * Get arguments from PSR-7 Request
      *
      * @return array List of forms arguments from POST or GET
      */
-    private function getFormArgs(Request $request)
+    protected function getFormArgs($request)
     {
-        $method = strtolower($this->method);
+        $method = strtolower($this->getMethod());
         if ($method == 'get') {
             return $request->getQueryParams();
         }
@@ -119,32 +121,32 @@ class Form
     }
 
     /**
+     * Get attribute from from PSR-7 Request
+     *
+     * @param $request Request PSR-7 Request
+     * @param $name string Name of the attribute
+     * @return array List of forms arguments from POST or GET
+     */
+    protected function getRequestAttribute($request, $name)
+    {
+        return $request->getAttribute($name);
+    }
+
+    /**
      * Render form
      *
      * @return string HTML From
      */
-    public function render(Request $request)
+    public function render($request)
     {
         $args = $this->getFormArgs($request);
         $form = "<form ";
-        if ($this->id) {
-            $form .= "id=\"{$this->id}\" ";
-        }
-        if ($this->class) {
-            $form .= "class=\"{$this->class}\" ";
-        }
-        if ($this->method) {
-            $form .= "method=\"{$this->method}\" ";
-        }
-        if ($this->action) {
-            $form .= "action=\"{$this->action}\" ";
-        }
-        if ($this->enctype) {
-            $form .= "enctype=\"{$this->action}\" ";
+        foreach ($this->attributes as $key => $value) {
+            $form .= "{$key}=\"{$value}\" ";
         }
         $form .= ">";
         foreach ($this->csrf as $name) {
-            if ($request->getAttribute($name)) {
+            if ($this->getRequestAttribute($request, $name)) {
                 $form .= "<input type=\"hidden\" name=\"{$name}\" value=\"{$request->getAttribute($name)}\">";
             }
         }

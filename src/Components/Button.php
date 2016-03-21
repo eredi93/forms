@@ -28,7 +28,7 @@ class Button extends Base
     public function render($args, $errors)
     {
         $button = "<button ";
-        foreach ($this->args as $key => $value) {
+        foreach ($this->attributes as $key => $value) {
             $button .= "{$key}=\"{$value}\" ";
         }
         $button .= ">{$this->text}</button>";

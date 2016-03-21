@@ -12,7 +12,7 @@ namespace Forms\Validators;
 /**
  * \Forms\Validators\Match
  *
- * Check that the form value passed match the vale preset
+ * Check that the form value passed match to the value preset
  * Extends Base Class
  *
  * @package    Forms
@@ -32,8 +32,11 @@ class Match extends Base
      * @param $message string Message returned on validation error
      * @return void
      */
-    public function __construct($match, $message = "Value Mismatch.")
+    public function __construct($match, $message = false)
     {
+        if (!$message) {
+            $message = "Not equal to {$match}.";
+        }
         $this->match = $match;
         parent::__construct($message);
     }

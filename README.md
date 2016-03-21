@@ -1,11 +1,12 @@
 # Forms
-Easy to use & highly customisable PHP package for Form generation and data validation
+Easy to use & highly customisable PHP package for Form generation and data validation.
+Supports [PSR-7 HTTP-Message](http://www.php-fig.org/psr/psr-7/).
 
 - Generate HTML forms
 - Validate data
-- PSR 7 HTTP Message
+- PSR-7 HTTP-Message
 
-**Note: This package is under heavy development and is not recommended for production.**
+**Note: This package has been developed under Slim3 and is the only Framework supported at the moment.**
 
 ## Installing
 
@@ -31,29 +32,25 @@ class LoginForm extends Form
 {
     protected function setUp()
     {
-        $this->action = "";
-        $this->method = "POST";
-
         $this->fields = [
-            "identifier" => (new Input("identifier"))->setType("text")
-                ->setLabel("User / Email")
-                ->setAutocomplete("off")
-                ->setDecorator("<div class=\"input-field col s12\"> %s </div>")
-                ->setValidators([
-                    new Required(),
-                ]),
-            "password" => (new Input("password"))->setType("password")
-                ->setLabel("Password")
-                ->setNoCallBack()
-                ->setDecorator("<div class=\"input-field col s12\"> %s </div></div>")
-                ->setValidators([
-                    new Required(),
-                ]),
-            "submit" => (new Button())->setType("submit")
-                ->setDecorator("<div class=\"input-field col s12\"> %s </div></div>")
-                ->setClass("btn yellow darken-2 waves-effect waves-light")
-                ->setText("Login"),
-        ];
+                    (new TextInput("identifier"))
+                        ->setLabel("User / Email")
+                        ->setAutocomplete("off")
+                        ->setDecorator("<div class=\"input-field col s12\"> %s </div>")
+                        ->setValidators([
+                            new Required(),
+                        ]),
+                    (new PasswordInput("password"))
+                        ->setLabel("Password")
+                        ->setDecorator("<div class=\"input-field col s12\"> %s </div>")
+                        ->setValidators([
+                            new Required(),
+                        ]),
+                    (new SubmitButton())
+                        ->setDecorator("<div class=\"input-field col s12\"> %s </div>")
+                        ->setClass("btn yellow darken-2 waves-effect waves-light right")
+                        ->setText("Login"),
+                ];
     }
 }
 ```
