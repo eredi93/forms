@@ -20,11 +20,10 @@ namespace Forms\Validators;
  */
 class Required extends Base
 {
-    
     /**
      * Build a new instance of the validator
      *
-     * @param $message string Message returned on validation error
+     * @param string $message Message returned on validation error
      * @return void
      */
     public function __construct($message = "This field is required.")
@@ -35,7 +34,7 @@ class Required extends Base
     /**
      * Check if value passes the validation
      *
-     * @param $value string Value to check
+     * @param string $value Value to check
      * @return bool
      */
     public function check($value)

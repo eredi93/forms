@@ -22,7 +22,8 @@ class SubmitButton extends Button
 {
     /**
      * Build a new instance of the Text Input
-     *
+     * 
+     * @param string $name Attribute name of the form component
      * @return void
      */
     public function __construct($name = null)

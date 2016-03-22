@@ -20,12 +20,11 @@ namespace Forms\Validators;
  */
 class Regexp extends Filter
 {
-
     /**
      * Build a new instance of the validator
      *
-     * @param $regexp string Regexp that have to match the from value
-     * @param $message string Message returned on validation error
+     * @param string $regexp Regexp that have to match the from value
+     * @param string $message Message returned on validation error
      * @return void
      */
     public function __construct($regexp, $message = "Pattern not supported.")

@@ -20,7 +20,6 @@ namespace Forms\Components;
  */
 class Datalist extends Base
 {
-
     /*
      * @var array Associative array for select options eg ['name'=>"text"]
      */
@@ -29,9 +28,10 @@ class Datalist extends Base
     /**
      * Set datalist options
      *
-     * @return $this
+     * @param array $options List of dalist options
+     * @return Datalist $this
      */
-    public function setOptions($options)
+    public function setOptions(array $options)
     {
         $this->options = $options;
         return $this;
@@ -40,20 +40,16 @@ class Datalist extends Base
     /**
      * Render HTML of the form component
      *
-     * @return string
+     * @param array $arguments List of HTTP components
+     * @param array $errors List of validation errors
+     * @return string $field Form field component
      */
     public function render($attributes, $errors)
     {
         if (!isset($this->attributes['id'])) {
             $this->attributes['id'] = "_" . $this->attributes['name'];
         }
-
-        $input =  "<input ";
-        foreach ($this->attributes as $key => $value) {
-            $input .= "{$key}=\"{$value}\" ";
-        }
-        $input .= ">";
-
+        $input =  "<input name=\"{$this->attributes['name']}\" list={$this->attributes['id']}>";
         if ($this->label) {
             $input .= $this->label;
         }
@@ -65,7 +61,13 @@ class Datalist extends Base
             }
             $input .= "</span>";
         }
-        $datalist =  $input ."<datalist id=\"{$this->attributes['id']}\">";
+        $datalist =  $input ."<datalist ";
+        foreach ($this->attributes as $key => $value) {
+            if ($key != "name") {
+                $datalist .= "{$key}=\"{$value}\" ";
+            }
+        }
+        $datalist .= ">";
 
         foreach ($this->options as $value) {
             $datalist .= "<option value=\"{$value}\">";

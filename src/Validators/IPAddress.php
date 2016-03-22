@@ -21,13 +21,12 @@ namespace Forms\Validators;
  */
 class IPAddress extends Filter
 {
-
     /**
      * Build a new instance of the validator
      *
-     * @param $IPv4 bool Filter only IPv4 addresses
-     * @param $IPv6 bool Filter only IPv6 addresses
-     * @param $message string Message returned on validation error
+     * @param bool $IPv4 Filter only IPv4 addresses
+     * @param bool $IPv6 Filter only IPv6 addresses
+     * @param string $message Message returned on validation error
      * @return void
      */
     public function __construct($IPv4 = false, $IPv6 = true, $message = "The field must be a valid IP Address.")

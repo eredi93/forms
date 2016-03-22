@@ -62,11 +62,12 @@ class Base
     /**
      * Build a new instance of the component and load settings
      *
+     * @param string $name Attribute name of the form component
      * @return void
      */
     public function __construct($name = null)
     {
-        $this->args = [];
+        $this->attributes = [];
         $this->validators = [];
         $this->errors = [];
         $this->label = null;
@@ -75,14 +76,13 @@ class Base
         $this->call_back = true;
         if ($name) {
             $this->attributes['name'] = $name;
-        } else {
-            $this->attributes['name'] = null;
         }
     }
 
     /**
      * Set component attributes
      *
+     * @param array $attributes Associative array of HTML attributes
      * @return $this
      */
     public function setAttributes(array $attributes)
@@ -92,8 +92,22 @@ class Base
     }
 
     /**
+     * Set component attributes
+     *
+     * @param string $attribute HTML attribute
+     * @param string $value Value to associate to the attribute
+     * @return $this
+     */
+    public function appendAttribute($attribute, $value)
+    {
+        $this->attributes[$attribute] = $value;
+        return $this;
+    }
+
+    /**
      * Set component class
      *
+     * @param string $class Class attribute
      * @return $this
      */
     public function setClass($class)
@@ -105,6 +119,7 @@ class Base
     /**
      * Set component ID
      *
+     * @param string $id ID attribute
      * @return $this
      */
     public function setID($id)
@@ -116,6 +131,7 @@ class Base
     /**
      * Set component type
      *
+     * @param string $type Type attribute
      * @return $this
      */
     public function setType($type)
@@ -127,6 +143,7 @@ class Base
     /**
      * Set component placeholder
      *
+     * @param string $placeholder Placeholder attribute
      * @return $this
      */
     public function setPlaceholder($placeholder)
@@ -137,7 +154,8 @@ class Base
 
     /**
      * Set component text
-     *
+     * 
+     * @param string $text Text within component tags
      * @return $this
      */
     public function setText($text)
@@ -148,7 +166,8 @@ class Base
 
     /**
      * Set component label
-     *
+     * 
+     * @param string $label Label for component
      * @return $this
      */
     public function setLabel($label)
@@ -164,6 +183,7 @@ class Base
     /**
      * Set component decorator
      *
+     * @param string $decorator Decorator that wrap component
      * @return $this
      */
     public function setDecorator($decorator)
@@ -182,7 +202,7 @@ class Base
     }
 
     /**
-     * Set component decorator
+     * Set Call back to false
      *
      * @return $this
      */
@@ -195,7 +215,7 @@ class Base
     /**
      * Return current class call_back
      *
-     * @return bool
+     * @return bool $this->call_back
      */
     public function isCallBack()
     {
@@ -205,6 +225,7 @@ class Base
     /**
      * Set component validators
      *
+     * @param array $validators
      * @return $this
      */
     public function setValidators(array $validators)
@@ -216,7 +237,7 @@ class Base
     /**
      * Return current class errors
      *
-     * @return array
+     * @return array $this->errors
      */
     public function getErrors()
     {
@@ -230,15 +251,20 @@ class Base
      */
     public function getName()
     {
-        return $this->attributes['name'];
+        if (isset($this->attributes['name'])) {
+            return $this->attributes['name'];
+        }
+        return null;
     }
 
     /**
      * Render HTML of the form component
      *
-     * @return string
+     * @param array $arguments List of HTTP components
+     * @param array $errors List of validation errors
+     * @return string $field Form field component
      */
-    public function render($args)
+    public function render($arguments, $errors)
     {
 
     }
@@ -246,6 +272,7 @@ class Base
     /**
      * Render HTML of the form component with the decorator
      *
+     * @param string $field Form component
      * @return string
      */
     protected function renderWithDecorator($field)
@@ -256,6 +283,7 @@ class Base
     /**
      * Validate each validator in class array of validators
      *
+     * @param string $value Value from HTTP request
      * @return bool
      */
     public function validate($value)

@@ -23,7 +23,9 @@ class TextArea extends Base
     /**
      * Render HTML of the form component
      *
-     * @return string
+     * @param array $arguments List of HTTP components
+     * @param array $errors List of validation errors
+     * @return string $field Form field component
      */
     public function render($attributes, $errors)
     {

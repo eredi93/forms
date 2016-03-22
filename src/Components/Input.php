@@ -20,11 +20,11 @@ namespace Forms\Components;
  */
 class Input extends Base
 {
-
     /**
      * Set component value
      *
-     * @return $this
+     * @param string $value Value attribute
+     * @return Input $this
      */
     public function setValue($value)
     {
@@ -35,18 +35,24 @@ class Input extends Base
     /**
      * Set component autocomplete
      *
-     * @return $this
+     * @param string $mode Mode attribute "on" or "off"
+     * @return Input $this
      */
     public function setAutocomplete($mode)
     {
-        $this->attributes['autocomplete'] = $mode;
+        if ($mode == "on" || $mode == "off") {
+            $this->attributes['autocomplete'] = $mode;
+            return $this;
+        }
         return $this;
     }
 
     /**
      * Render HTML of the form component
      *
-     * @return string
+     * @param array $arguments List of HTTP components
+     * @param array $errors List of validation errors
+     * @return string $field Form field component
      */
     public function render($attributes, $errors)
     {

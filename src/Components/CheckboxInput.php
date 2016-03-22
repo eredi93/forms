@@ -15,7 +15,7 @@ class CheckboxInput extends Input
     /**
      * Set checked
      *
-     * @return $this
+     * @return CheckboxInput $this
      */
     public function setChecked()
     {
@@ -25,7 +25,8 @@ class CheckboxInput extends Input
 
     /**
      * Build a new instance of the Text Input
-     *
+     * 
+     * @param string $name Attribute name of the form component
      * @return void
      */
     public function __construct($name = null)

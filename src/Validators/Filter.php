@@ -33,7 +33,7 @@ class Filter extends Base
     /**
      * Check if value passes the validation
      *
-     * @param $value string Value to check
+     * @param string $value Value to check
      * @return bool
      */
     public function check($value)

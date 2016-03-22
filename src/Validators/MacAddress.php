@@ -20,11 +20,10 @@ namespace Forms\Validators;
  */
 class MacAddress extends Filter
 {
-
     /**
      * Build a new instance of the validator
      *
-     * @param $message string Message returned on validation error
+     * @param string $message Message returned on validation error
      * @return void
      */
     public function __construct($message = "The field must be a valid Mac Address.")

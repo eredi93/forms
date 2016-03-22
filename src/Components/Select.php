@@ -20,7 +20,6 @@ namespace Forms\Components;
  */
 class Select extends Base
 {
-
     /*
      * @var array Associative array for select options eg ['name'=>"text"]
      */
@@ -29,7 +28,7 @@ class Select extends Base
     /**
      * Set select menu
      *
-     * @return $this
+     * @return Select $this
      */
     public function setOptions($options)
     {
@@ -40,12 +39,16 @@ class Select extends Base
     /**
      * Render HTML of the form component
      *
-     * @return string
+     * @param array $arguments List of HTTP components
+     * @param array $errors List of validation errors
+     * @return string $field Form field component
      */
     public function render($attributes, $errors)
     {
         if (isset($attributes[$this->attributes['name']]) && $this->isCallBack()) {
-            $this->attributes['value'] = $attributes[$this->attributes['name']];
+            $selected = $attributes[$this->attributes['name']];
+        } else {
+            $selected = null;
         }
         $select =  "<select ";
         foreach ($this->attributes as $key => $value) {
@@ -53,7 +56,11 @@ class Select extends Base
         }
         $select .= ">";
         foreach ($this->options as $key => $value) {
-            $select .= "<option value=\"{$key}\">{$value}</option>";
+            $select .= "<option value=\"{$key}\"";
+            if ($key == $selected) {
+                $select .= " selected";
+            }
+            $select .= ">{$value}</option>";
         }
         $select .= "</select>";
         if ($this->label) {

@@ -33,9 +33,9 @@ class StringField extends Base
     /**
      * Build a new instance of the validator
      *
-     * @param $min int length minimum for the string to pass the validation
-     * @param $max int length maximum for the string to pass the validation
-     * @param $message string Message returned on validation error
+     * @param int $min length minimum for the string to pass the validation
+     * @param int $max length maximum for the string to pass the validation
+     * @param string $message Message returned on validation error
      * @return void
      */
     public function __construct($min = 0, $max = 255, $message = "")
@@ -48,7 +48,7 @@ class StringField extends Base
     /**
      * Check if value passes the validation
      *
-     * @param $value string Value to check
+     * @param string $value Value to check
      * @return bool
      */
     public function check($value)

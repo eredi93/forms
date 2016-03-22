@@ -8,8 +8,6 @@
 
 namespace Forms;
 
-use Psr\Http\Message\ServerRequestInterface as Request;
-
 /**
  * \Forms\Form
  *
@@ -43,6 +41,9 @@ class Form
     /**
      * Build a new instance of the form, load settings and set up validators
      *
+     * @param string $action From action attribute
+     * @param string $method From method attribute
+     * @param array $csrf List of strings with name of CSRF Tokens
      * @return void
      */
     public function __construct($action = "", $method = "POST", array $csrf = ['csrf_name', 'csrf_value'])
@@ -57,6 +58,7 @@ class Form
     /**
      * Set component attributes
      *
+     * @param array $attributes Form HTML attributes
      * @return $this
      */
     protected function setAttributes(array $attributes)
@@ -69,7 +71,7 @@ class Form
     /**
      * Return Form validation errors
      *
-     * @return array Class validation errors
+     * @return array $this->errors
      */
     public function getErrors()
     {
@@ -79,7 +81,7 @@ class Form
     /**
      * Return Form method
      *
-     * @return array Class fields
+     * @return string $this->attributes['method']
      */
     public function getMethod()
     {
@@ -89,7 +91,7 @@ class Form
     /**
      * Return Form fields
      *
-     * @return array Class fields
+     * @return array $this->fields
      */
     public function getFields()
     {
@@ -107,25 +109,28 @@ class Form
     }
 
     /**
-     * Get arguments from PSR-7 Request
+     * Get arguments from request object
      *
-     * @return array List of forms arguments from POST or GET
+     * @param object $request Request object
+     * @return array $args List of forms arguments from POST or GET
      */
     protected function getFormArgs($request)
     {
         $method = strtolower($this->getMethod());
         if ($method == 'get') {
-            return $request->getQueryParams();
+            $args = $request->getQueryParams();
+        } else {
+            $args = $request->getParsedBody();
         }
-        return $request->getParsedBody();
+        return $args;
     }
 
     /**
-     * Get attribute from from PSR-7 Request
+     * Get attribute from request object
      *
-     * @param $request Request PSR-7 Request
-     * @param $name string Name of the attribute
-     * @return array List of forms arguments from POST or GET
+     * @param object $request Request object
+     * @param string $name string Name of the attribute
+     * @return string Attribute for $name
      */
     protected function getRequestAttribute($request, $name)
     {
@@ -135,6 +140,7 @@ class Form
     /**
      * Render form
      *
+     * @param object $request Request object
      * @return string HTML From
      */
     public function render($request)
@@ -151,7 +157,15 @@ class Form
             }
         }
         foreach ($this->fields as $field) {
-            $form .= $field->render($args, $this->errors[$field->getName()]);
+            /**
+             * @var $field \Forms\Components\Base Form field component
+             */
+            if(isset($this->errors[$field->getName()])) {
+                $errors = $this->errors[$field->getName()];
+            } else {
+                $errors = [];
+            }
+            $form .= $field->render($args, $errors);
         }
         $form .= "</form>";
         return $form;
@@ -160,13 +174,22 @@ class Form
     /**
      * Validate Form, runs validation for each field.
      *
+     * @param object $request Request object
      * @return bool Return true if there where no errors during the validation
      */
-    public function validate(Request $request)
+    public function validate($request)
     {
         $args = $this->getFormArgs($request);
         foreach ($this->fields as $field) {
-            if (!$field->validate($args[$field->getName()])) {
+            /**
+             * @var $field \Forms\Components\Base Form field component
+             */
+            if(isset($args[$field->getName()])) {
+                $data = $args[$field->getName()];
+            } else {
+                $data = null;
+            }
+            if (!$field->validate($data)) {
                 $this->errors[$field->getName()] = $field->getErrors();
             }
         }

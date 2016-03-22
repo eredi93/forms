@@ -29,8 +29,8 @@ class AnyOf extends Base
     /**
      * Build a new instance of the validator
      *
-     * @param $anyOf array List of values. To pass the validation the value passed has to march one of them.
-     * @param $message string Message returned on validation error
+     * @param array $anyOf List of values. To pass the validation the value passed has to march one of them.
+     * @param string $message Message returned on validation error
      * @return void
      */
     public function __construct(array $anyOf, $message = "Not equal to any of the preset values.")
@@ -42,7 +42,7 @@ class AnyOf extends Base
     /**
      * Check if value passes the validation
      *
-     * @param $value string Value to check
+     * @param string $value Value to check
      * @return bool
      */
     public function check($value)

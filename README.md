@@ -20,10 +20,10 @@ Install using Composer.
 }
 ```
 
-## Basic usage
+## Basic usage (Slim 3)
 
-in the following example will be using Slim 3 for the routing.
-extend basic Form and within the setUp method set the form fields and settings
+Extend basic Form and within the setUp method set the form fields
+
 ```php
 use Forms\From;
 use Forms\Validators\Required;
@@ -33,40 +33,51 @@ class LoginForm extends Form
     protected function setUp()
     {
         $this->fields = [
-                    (new TextInput("identifier"))
-                        ->setLabel("User / Email")
-                        ->setAutocomplete("off")
-                        ->setDecorator("<div class=\"input-field col s12\"> %s </div>")
-                        ->setValidators([
-                            new Required(),
-                        ]),
-                    (new PasswordInput("password"))
-                        ->setLabel("Password")
-                        ->setDecorator("<div class=\"input-field col s12\"> %s </div>")
-                        ->setValidators([
-                            new Required(),
-                        ]),
-                    (new SubmitButton())
-                        ->setDecorator("<div class=\"input-field col s12\"> %s </div>")
-                        ->setClass("btn yellow darken-2 waves-effect waves-light right")
-                        ->setText("Login"),
-                ];
+            (new TextInput("identifier"))
+                ->setLabel("User / Email")
+                ->setAutocomplete("off")
+                ->setDecorator("<div class=\"input-field col s12\"> %s </div>")
+                ->setValidators([
+                    new Required(),
+                ]),
+            (new PasswordInput("password"))
+                ->setLabel("Password")
+                ->setDecorator("<div class=\"input-field col s12\"> %s </div>")
+                ->setValidators([
+                    new Required(),
+                ]),
+            (new SubmitButton())
+                ->setDecorator("<div class=\"input-field col s12\"> %s </div>")
+                ->setClass("btn yellow darken-2 waves-effect waves-light right")
+                ->setText("Login"),
+        ];
     }
 }
 ```
+
 now that you have your form created instantiate it in the GET controller
+
 ```php
 public function login(Request $request, Response $response, $args)
 {
     // Instantiate Form
     $form = new LoginForm();
+    /**
+     * You can pass to the form the method action and the CSRF name
+     * by default the form uses
+     * - $action=""
+     * - $method="POST"
+     * - $csrf=['csrf_name', 'csrf_value']
+     */
     // Render Form
     echo $form->render($request);
 
     return $response;
 }
 ```
+
 to validate the form in POST controller call the validate method
+
 ```php
 public function loginPost(Request $request, Response $response, $args)
 {
@@ -80,13 +91,14 @@ public function loginPost(Request $request, Response $response, $args)
         */
     }
 
-    // Render Form with validation form
+    // Render Form with validation
     echo $form->render($request);
 
     return $response;
 }
 
 ```
+
 
 ## Contributing
 

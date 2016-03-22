@@ -20,11 +20,11 @@ namespace Forms\Components;
  */
 class FileInput extends Input
 {
-
     /**
      * Set data accepted
-     *
-     * @return $this
+     * 
+     * @param string $accepted Accepted file format
+     * @return FileInput $this
      */
     public function setAccept($accepted)
     {
@@ -35,7 +35,7 @@ class FileInput extends Input
     /**
      * Set multiple
      *
-     * @return $this
+     * @return FileInput $this
      */
     public function setMultiple()
     {
@@ -45,7 +45,8 @@ class FileInput extends Input
 
     /**
      * Build a new instance of the Text Input
-     *
+     * 
+     * @param string $name Attribute name of the form component
      * @return void
      */
     public function __construct($name = null)

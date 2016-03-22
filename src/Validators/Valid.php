@@ -33,9 +33,9 @@ class Valid extends Base
     /**
      * Build a new instance of the validator
      *
-     * @param $form \Forms\Form or Extensions of the Form class
-     * @param $check_method string Method of the form
-     * @param $message string Message returned on validation error
+     * @param \Forms\Form $form Form class
+     * @param string $check_method Method of the form
+     * @param string $message Message returned on validation error
      * @return void
      */
     public function __construct($form, $check_method, $message = "Invalid value.")
@@ -48,7 +48,7 @@ class Valid extends Base
     /**
      * Check if value passes the validation
      *
-     * @param $value string Value to check
+     * @param string $value Value to check
      * @return bool
      */
     public function check($value)

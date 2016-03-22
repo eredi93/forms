@@ -32,7 +32,7 @@ class Base
     /**
      * Build a new instance of the validator
      *
-     * @param $message string Message returned on validation error
+     * @param string $message Message returned on validation error
      * @return void
      */
     public function __construct($message = "This is a default error.")
@@ -41,6 +41,12 @@ class Base
         $this->error = null;
     }
 
+    /**
+     * Set validator error
+     *
+     * @param string $error Validation error
+     * @return void
+     */
     protected function setError($error)
     {
         $this->error = $error;
@@ -49,7 +55,7 @@ class Base
     /**
      * Return validation error
      *
-     * @return string
+     * @return string $this->error
      */
     public function getError()
     {

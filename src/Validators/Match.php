@@ -28,8 +28,8 @@ class Match extends Base
     /**
      * Build a new instance of the validator
      *
-     * @param $match string Value to match with the one passed int the validator
-     * @param $message string Message returned on validation error
+     * @param string $match Value to match with the one passed int the validator
+     * @param string $message Message returned on validation error
      * @return void
      */
     public function __construct($match, $message = false)
@@ -44,7 +44,7 @@ class Match extends Base
     /**
      * Check if value passes the validation
      *
-     * @param $value string Value to check
+     * @param string $value Value to check
      * @return bool
      */
     public function check($value)

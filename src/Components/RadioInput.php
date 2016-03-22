@@ -23,7 +23,7 @@ class RadioInput extends Input
     /**
      * Set checked
      *
-     * @return $this
+     * @return RadioInput $this
      */
     public function setChecked()
     {
@@ -33,7 +33,8 @@ class RadioInput extends Input
 
     /**
      * Build a new instance of the Text Input
-     *
+     * 
+     * @param string $name Attribute name of the form component
      * @return void
      */
     public function __construct($name = null)
