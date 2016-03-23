@@ -103,3 +103,7 @@ public function loginPost(Request $request, Response $response, $args)
 ## Contributing
 
 Please file issues under GitHub, or submit a pull request if you'd like to directly contribute.
+
+## Running tests
+
+Tests are run with phpunit. Run ./vendor/bin/phpunit to run tests.

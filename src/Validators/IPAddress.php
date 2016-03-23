@@ -29,7 +29,7 @@ class IPAddress extends Filter
      * @param string $message Message returned on validation error
      * @return void
      */
-    public function __construct($IPv4 = false, $IPv6 = true, $message = "The field must be a valid IP Address.")
+    public function __construct($IPv4 = true, $IPv6 = false, $message = "The field must be a valid IP Address.")
     {
         parent::__construct($message);
         $this->filterFlag = FILTER_VALIDATE_IP;

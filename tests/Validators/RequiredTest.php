@@ -8,8 +8,12 @@
  */
 class RequiredTest extends PHPUnit_Framework_TestCase
 {
-    public function testRequiredValidate()
+    public function testRequired()
     {
-        $this->assertTrue(true);
+        $required = new \Forms\Validators\Required();
+
+        $this->assertTrue($required->check('option_1'), "Required did not validate correctly.");
+        $this->assertFalse($required->check(''), "Required did not validate correctly.");
+        $this->assertEquals("This field is required.", $required->getError(),"");
     }
 }

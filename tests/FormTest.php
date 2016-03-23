@@ -8,32 +8,8 @@
  */
 
 require_once 'MockHTTPRequest.php';
+require_once 'MockForm.php';
 
-class MockForm extends \Forms\Form
-{
-    protected function setUp()
-    {
-        $this->fields = [
-            (new \Forms\Components\TextInput("identifier"))
-                ->setLabel("User / Email")
-                ->setAutocomplete("off")
-                ->setDecorator("<div class=\"input-field\"> %s </div>")
-                ->setValidators([
-                    new \Forms\Validators\StringField(6,25),
-                    new \Forms\Validators\Required(),
-                ]),
-            (new \Forms\Components\PasswordInput("password"))
-                ->setLabel("Password")
-                ->setDecorator("<div class=\"input-field\"> %s </div>")
-                ->setValidators([
-                    new \Forms\Validators\Required(),
-                ]),
-            (new \Forms\Components\SubmitButton())
-                ->setText("Login"),
-        ];
-
-    }
-}
 
 class FormTest extends PHPUnit_Framework_TestCase
 {

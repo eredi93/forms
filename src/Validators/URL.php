@@ -26,9 +26,13 @@ class URL extends Filter
      * @param string $message Message returned on validation error
      * @return void
      */
-    public function __construct($message = "The field must be a valid URL.")
+    public function __construct($options = null, $message = "The field must be a valid URL.")
     {
         parent::__construct($message);
         $this->filterFlag = FILTER_VALIDATE_URL;
+        if ($options) {
+            $this->filterOptions = $options;
+        }
+
     }
 }
