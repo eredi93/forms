@@ -1,11 +1,11 @@
 <?php
-
 /**
  * @author   Jacopo Scrinzi
  * @date     22/03/2016
  *
  * SelectTest.php
  */
+
 class SelectTest extends PHPUnit_Framework_TestCase
 {
     public function componentProvider()

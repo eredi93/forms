@@ -202,6 +202,21 @@ class Base
     }
 
     /**
+     * Set component basic decorator with class passed
+     *
+     * @param string $class Decorator HTML class
+     * @return $this
+     */
+    public function setDecoratorClass($class)
+    {
+        $this->decorator = [
+            "<div class=\"$class\">", 
+            "</div>",
+        ];
+        return $this;
+    }
+
+    /**
      * Set Call back to false
      *
      * @return $this

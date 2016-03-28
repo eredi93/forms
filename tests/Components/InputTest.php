@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @author   Jacopo Scrinzi
  * @date     21/03/2016

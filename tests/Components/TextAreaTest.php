@@ -1,11 +1,11 @@
 <?php
-
 /**
  * @author   Jacopo Scrinzi
  * @date     22/03/2016
  *
  * TextAreaTest.php
  */
+
 class TextAreaTest extends PHPUnit_Framework_TestCase
 {
     public function componentProvider()
