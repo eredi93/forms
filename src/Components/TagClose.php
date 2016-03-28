@@ -36,6 +36,6 @@ class TagClose
      */
     public function render($args, $errors)
     {
-        return "</div>";
+        return "</$this->tag>";
     }
 }
