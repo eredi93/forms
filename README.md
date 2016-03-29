@@ -33,23 +33,25 @@ class LoginForm extends Form
     protected function setUp()
     {
         $this->fields = [
+            (new TagOpen(['class' => "wrapper"])),
             (new TextInput("identifier"))
                 ->setLabel("User / Email")
                 ->setAutocomplete("off")
-                ->setDecorator("<div class=\"input-field col s12\"> %s </div>")
+                ->setDecoratorClass("input-field col s12")
                 ->setValidators([
                     new Required(),
                 ]),
             (new PasswordInput("password"))
                 ->setLabel("Password")
-                ->setDecorator("<div class=\"input-field col s12\"> %s </div>")
+                ->setDecoratorClass("input-field col s12")
                 ->setValidators([
                     new Required(),
                 ]),
             (new SubmitButton())
-                ->setDecorator("<div class=\"input-field col s12\"> %s </div>")
-                ->setClass("btn yellow darken-2 waves-effect waves-light right")
+                ->setDecoratorClass("input-field col s12")
+                ->setClass("btn yellow right")
                 ->setText("Login"),
+            (new TagClose(),
         ];
     }
 }

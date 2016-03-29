@@ -1,7 +1,7 @@
 # Contributing to Forms
 
 Following these guidelines helps to maintain quality throughout the project, however
-  they are not rules, so use your best judgement and feel free to propose any changes to this document.
+they are not rules, so use your best judgement and feel free to propose any changes to this document.
 
 ## Submitting Issues
 
