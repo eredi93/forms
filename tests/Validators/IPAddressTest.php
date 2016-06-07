@@ -13,6 +13,7 @@ class IPAddressTest extends PHPUnit_Framework_TestCase
         $ip = new \Forms\Validators\IPAddress();
 
         $this->assertTrue($ip->check('8.8.8.8'), "IPAddress did not validate correctly.");
+        $this->assertTrue($ip->check('10.10.5.45/32'), "IPAddress did not validate correctly.");
         $this->assertFalse($ip->check('10.10.10.300'), "IPAddress did not validate correctly.");
         $this->assertEquals("The field must be a valid IP Address.", $ip->getError(),"");
     }
